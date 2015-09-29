@@ -6,12 +6,14 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.TextView;
 
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private static float maxvalue = triggervalue; //used to norm the output
     private static Vibrator mVibrator;
     private static Random rand = new Random();
+    private MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
         //get vibrator
         mVibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        player = MediaPlayer.create(this,R.raw.correct_answer);
         /*Get sensors*/
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerolmeter = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         Firebase.setAndroidContext(this);
         myFirebaseRef = new Firebase("https://blinding-heat-7399.firebaseio.com/"+id);
         myFirebaseRef.child("rattle").addValueEventListener(this);
+
     }
 
     @Override
@@ -97,6 +102,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             e.printStackTrace();
         }
         PutColor(i);
+
+        player.start();
     }
 
 
