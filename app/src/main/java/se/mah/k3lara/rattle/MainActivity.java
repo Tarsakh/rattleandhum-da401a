@@ -6,6 +6,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private static float maxvalue = triggervalue; //used to norm the output
     private static Vibrator mVibrator;
     private static Random rand = new Random();
+    private MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,5 +112,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onCancelled(FirebaseError firebaseError) {
 
+    }
+
+    public void startSound() {
+        player = MediaPlayer.create(this, R.raw.correct_answer);
+        player.start();
     }
 }
