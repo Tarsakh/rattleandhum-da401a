@@ -87,28 +87,62 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     //Firebase stuff
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
-        TextView backgroundColor = (TextView) findViewById(R.id.rattleBackground);
 
+        int i = 0;
         try {
-            int i = Integer.parseInt(dataSnapshot.getValue().toString());
+            i = Integer.parseInt(dataSnapshot.getValue().toString());
             //mVibrator.vibrate(i);
-            switch (i) {
-                case 0:
-                    backgroundColor.setBackgroundColor(Color.RED);
-                    break;
-                case 1:
-                    backgroundColor.setBackgroundColor(Color.RED);
-                default:
-
             }
-        } catch (Exception e) {
+         catch (Exception e) {
             e.printStackTrace();
         }
-
+        PutColor(i);
     }
+
+
+
 
     @Override
     public void onCancelled(FirebaseError firebaseError) {
 
+    }
+
+    public void PutColor(int i) {
+        TextView backgroundColor = (TextView) findViewById(R.id.rattleBackground);
+        switch (i) {
+            case 0:
+                backgroundColor.setBackgroundColor(Color.RED);
+                break;
+            case 1:
+                backgroundColor.setBackgroundColor(Color.CYAN);
+                break;
+            case 2:
+                backgroundColor.setBackgroundColor(Color.YELLOW);
+                break;
+            case 3:
+                backgroundColor.setBackgroundColor(Color.BLUE);
+                break;
+            case 4:
+                backgroundColor.setBackgroundColor(Color.BLACK);
+                break;
+            case 5:
+                backgroundColor.setBackgroundColor(Color.LTGRAY);
+                break;
+            case 6:
+                backgroundColor.setBackgroundColor(Color.rgb(10, 10, 10));
+                break;
+            case 7:
+                backgroundColor.setBackgroundColor(Color.rgb(255, 255, 255));
+                break;
+            case 8:
+                backgroundColor.setBackgroundColor(Color.rgb(100, 100, 100));
+                break;
+            case 9:
+                backgroundColor.setBackgroundColor(Color.rgb(120, 120, 120));
+                break;
+
+            default:
+                break;
+        }
     }
 }
