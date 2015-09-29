@@ -94,15 +94,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         try {
             int i = Integer.parseInt(dataSnapshot.getValue().toString());
             //mVibrator.vibrate(i);
-            switch (i) {
-                case 0:
-                    backgroundColor.setBackgroundColor(Color.RED);
-                    break;
-                case 1:
-                    backgroundColor.setBackgroundColor(Color.RED);
-                default:
-
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
