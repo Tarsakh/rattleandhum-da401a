@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -21,17 +22,19 @@ import com.firebase.client.ValueEventListener;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener, ValueEventListener {
 
     private static Firebase myFirebaseRef;
     private static final String TAG = "MainActivity";
-    private static String id = "135";
+    private static String id = "7";
     private SensorManager mSensorManager;
     private Sensor mAccelerolmeter;
     private static int triggervalue = 7;
     private static float maxvalue = triggervalue; //used to norm the output
     private static Vibrator mVibrator;
+    private static Random rand = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +72,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 if (maxvalue < meanValue){
                     maxvalue = meanValue;
                 }
-                float vibrateTime = 100*((meanValue-triggervalue)/(maxvalue-triggervalue)); // 0-100ms
-                myFirebaseRef.child("rattle").setValue(Math.round(vibrateTime)); //send
+                //float vibrateTime = 100*((meanValue-triggervalue)/(maxvalue-triggervalue)); // 0-100ms
+                //myFirebaseRef.child("rattle").setValue(Math.round(vibrateTime)); //send
+
+                int i = rand.nextInt(5);
+                myFirebaseRef.child("rattle").setValue(i);
             }
         }
     }
@@ -81,9 +87,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     //Firebase stuff
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
+        TextView backgroundColor = (TextView) findViewById(R.id.rattleBackground);
+
         try {
             int i = Integer.parseInt(dataSnapshot.getValue().toString());
-            mVibrator.vibrate(i);
+            //mVibrator.vibrate(i);
+            switch (i) {
+                case 0:
+                    backgroundColor.setBackgroundColor(Color.RED);
+                    break;
+                case 1:
+                    backgroundColor.setBackgroundColor(Color.RED);
+                default:
+
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
